@@ -2,8 +2,6 @@
 
 Aplicación educativa de WayLearn para conectar una wallet, consultar Solana Devnet y operar el programa `registro` de los días 1 y 2. Se utiliza en las sesiones de frontend de los días 3 y 4 y como base del día 5.
 
-> **Empieza aquí:** [Guía para Isaac](GUIA_PARA_ISAAC.md). El proyecto incluye un IDL de referencia para poder instalar, generar el cliente y estudiar la estructura. **Las operaciones del registro permanecen bloqueadas hasta importar el IDL del despliegue que se utilizará en clase.** La conexión y la consulta pública de saldos funcionan desde el inicio.
-
 ## Qué incluye
 
 - Conexión de wallets compatibles con Wallet Standard, mediante Wallet Adapter.
