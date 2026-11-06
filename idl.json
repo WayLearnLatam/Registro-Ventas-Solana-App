@@ -1,0 +1,274 @@
+{
+  "version": "0.1.0",
+  "name": "registro",
+  "metadata": {
+    "address": "38oTMyvUTmqkBQeMiuok5F2mPjp9dVadWdBeQTDNmTUY"
+  },
+  "instructions": [
+    {
+      "name": "crearRegistro",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "registro",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nombreNegocio",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "crearCliente",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "registro",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "cliente",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nombre",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "registrarVenta",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "registro",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "cliente",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "venta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "idCliente",
+          "type": "u16"
+        },
+        {
+          "name": "sku",
+          "type": "string"
+        },
+        {
+          "name": "descripcion",
+          "type": "string"
+        },
+        {
+          "name": "monto",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "hacerDevolucion",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "registro",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "cliente",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "venta",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "idCliente",
+          "type": "u16"
+        },
+        {
+          "name": "sku",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "cambiarMonto",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "registro",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "cliente",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "venta",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "idCliente",
+          "type": "u16"
+        },
+        {
+          "name": "sku",
+          "type": "string"
+        },
+        {
+          "name": "nuevoMonto",
+          "type": "u32"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Registro",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "publicKey"
+          },
+          {
+            "name": "nombreNegocio",
+            "type": "string"
+          },
+          {
+            "name": "clientes",
+            "type": {
+              "vec": "publicKey"
+            }
+          },
+          {
+            "name": "idCounter",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Cliente",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "idCliente",
+            "type": "u16"
+          },
+          {
+            "name": "nombre",
+            "type": "string"
+          },
+          {
+            "name": "compras",
+            "type": "u16"
+          },
+          {
+            "name": "historial",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Venta",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "sku",
+            "type": "string"
+          },
+          {
+            "name": "descripcion",
+            "type": "string"
+          },
+          {
+            "name": "monto",
+            "type": "u32"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NoOwner",
+      "msg": "Error, no eres el owner del registro"
+    },
+    {
+      "code": 6001,
+      "name": "NoSKU",
+      "msg": "Error, la venta no esta en el historial del cliente"
+    }
+  ]
+}
