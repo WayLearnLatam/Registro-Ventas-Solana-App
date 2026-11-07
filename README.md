@@ -1,129 +1,178 @@
-# Registro de ventas · Solana Engineering Track Advanced
+# Registro de Ventas · App
 
-Aplicación educativa de WayLearn para conectar una wallet, consultar Solana Devnet y operar el programa `registro` de los días 1 y 2. Se utiliza en las sesiones de frontend de los días 3 y 4 y como base del día 5.
+![Registro de Ventas · App — Solana, TypeScript y React](./images/banner-app.png)
 
-## Qué incluye
+Frontend educativo desarrollado con **TypeScript y React** para interactuar con el programa [Registro de Ventas con PDAs](https://github.com/WayLearnLatam/Registro-Ventas-Solana-PDA) en **Solana Devnet**.
 
-- Conexión de wallets compatibles con Wallet Standard, mediante Wallet Adapter.
-- Consulta de saldos públicos por RPC, sin solicitar firmas.
-- Lectura del negocio, sus clientes y las ventas activas.
-- Crear registro, crear cliente, registrar venta, corregir importe y hacer devolución.
-- Derivación de PDAs, cliente generado con Codama, firma, confirmación y mensajes de error.
-- Modos de clase para separar la explicación del día 3 de los ejercicios del día 4.
-- Configuración de Dev Container y guías para preparar la sesión.
+Forma parte del **Solana Engineering Track: Advanced** de WayLearn. Aquí conectamos lo aprendido sobre cuentas, instrucciones y PDAs con una aplicación que se utiliza desde el navegador.
 
-**El importe es un entero del ejercicio. Registrar una venta no cobra tokens ni SOL.** La devolución elimina la referencia y cierra la cuenta Venta; no ejecuta un reembolso comercial.
+Puedes comenzar haciendo **Fork** de este repositorio. Hemos preparado un entorno de **GitHub Codespaces** para que puedas concentrarte en los ejercicios sin instalar las herramientas del frontend en tu computadora. 🚀
 
-## Ruta principal: GitHub Codespaces
+> 📖 Sigue las explicaciones y actividades en el [GitBook de Advanced](https://waylearn.gitbook.io/solana-engineering-track-advanced).
 
-1. Sube estos archivos a la raíz de un repositorio. Incluye `.devcontainer`, `.gitignore`, `.nvmrc`, `idl.json`, `clients/` y `package-lock.json`.
-2. En GitHub: **Code → Codespaces → Create codespace on main**.
-3. Espera a que termine la preparación. El contenedor utiliza Node 22 y ejecuta `npm ci` y `npm run cliente`.
-4. En la terminal del Codespace:
+## ¿Qué puedes hacer con la app?
+
+- Conectar una wallet y consultar saldos de Devnet.
+- Consultar un registro de ventas, sus clientes y las ventas activas de cada uno.
+- Crear un negocio y dar de alta a sus clientes.
+- Registrar ventas, corregir su importe y realizar devoluciones.
+- Revisar solicitudes de firma, confirmaciones y errores de las transacciones.
+
+El recorrido del proyecto sigue esta relación:
+
+**Registro del negocio → Clientes → Ventas**
+
+Cada entidad tiene su propia cuenta. El frontend deriva sus direcciones y utiliza el cliente generado a partir del IDL para leer datos y construir instrucciones.
+
+> ℹ️ El importe de una venta es un dato del ejercicio: **no cobra ni transfiere SOL o tokens**. La devolución elimina la venta del historial activo y cierra su cuenta; no realiza un reembolso comercial.
+
+## Antes de comenzar
+
+Necesitas una cuenta de GitHub y, para las operaciones que requieren firma, una wallet de navegador compatible con Solana y SOL de prueba en **Devnet**.
+
+Es recomendable tener conocimientos básicos de JavaScript o TypeScript y haber revisado el modelo de cuentas del [programa base](https://github.com/WayLearnLatam/Registro-Ventas-Solana-PDA).
+
+**No necesitas la Solana CLI para ejecutar este frontend.** Puedes trabajar con el programa desplegado desde Solana Playground.
+
+## Comenzar con Codespaces
+
+### 1. Crea tu copia
+
+Haz clic en **Fork**, en la parte superior de este repositorio, para crear una copia en tu cuenta. Así podrás guardar tus cambios y continuar con tu proyecto.
+
+### 2. Abre el entorno
+
+Desde tu copia, selecciona **Code → Codespaces → Create codespace on main**.
+
+Espera a que termine la preparación. El contenedor incluye Node 22 y ejecuta automáticamente la instalación de dependencias y la generación del cliente.
+
+### 3. Inicia la app
+
+En la terminal de Codespaces ejecuta:
 
 ```bash
 npm run dev
 ```
 
-5. En **Ports / Puertos**, abre el puerto **5173** con **Open in Browser**. Utiliza una pestaña normal del navegador donde esté instalada tu wallet, en lugar de la vista incrustada del editor.
+### 4. Ábrela en tu navegador
 
-El puerto puede permanecer privado. Si GitHub pide autenticar el acceso, utiliza la misma cuenta con la que abriste el Codespace. Detén el Codespace al terminar de trabajar.
+En la pestaña **Ports / Puertos**, localiza el **5173** y selecciona **Open in Browser**.
 
-Para preparar exclusivamente la sesión del día 3:
+Abre la aplicación en una pestaña normal del navegador donde tienes instalada tu wallet. La vista incrustada del editor puede no detectar la extensión. El puerto puede permanecer privado; utiliza la misma cuenta de GitHub para acceder.
 
-```bash
-npm run clase:dia3
-npm run dev
-```
+> 💡 Al terminar, detén el Codespace desde el menú de Codespaces para evitar consumir tiempo de cómputo mientras no lo utilizas.
 
-## Alternativa: WSL y VS Code
+## Ejecutar en tu computadora
 
-Con Node **22.12 o superior de la rama 22**, abre la carpeta desde WSL en VS Code y ejecuta:
+Si prefieres trabajar en local, utiliza **Node.js 22.12 o superior de la rama 22** y npm. Clona tu fork o utiliza directamente el repositorio original:
 
 ```bash
+git clone https://github.com/WayLearnLatam/Registro-Ventas-Solana-App.git
+cd Registro-Ventas-Solana-App
 npm ci
 npm run cliente
 npm run dev
 ```
 
-Abre `http://localhost:5173` en tu navegador de Windows. Puedes guardar el proyecto en tu carpeta personal de Linux para trabajar desde WSL.
+Abre `http://localhost:5173` en el navegador con tu wallet instalada.
 
-Si prefieres utilizar el mismo contenedor de Codespaces localmente, necesitas Docker Desktop con integración WSL y la extensión Dev Containers de VS Code. Abre la carpeta y selecciona **Dev Containers: Reopen in Container**. Esta opción también instala las dependencias automáticamente.
+En Windows puedes ejecutar estos comandos desde WSL. El repositorio también incluye una configuración de Dev Container para VS Code, si ya utilizas Docker y la extensión Dev Containers.
 
-**La Solana CLI no es requisito para ejecutar este frontend.** El programa puede compilarse y desplegarse desde Solana Playground; la app necesita su Program ID y su IDL.
+## Conectar el programa de Solana
 
-## Conectar el programa de la clase
+El frontend y el programa son dos partes del mismo proyecto:
 
-Obtén el IDL del programa que efectivamente desplegaste en Devnet, colócalo temporalmente en una carpeta local e impórtalo:
+| Parte | Responsabilidad |
+| --- | --- |
+| [Programa Rust + Anchor](https://github.com/WayLearnLatam/Registro-Ventas-Solana-PDA) | Define las cuentas, ejecuta instrucciones y valida permisos. |
+| Este frontend | Lee cuentas, construye instrucciones y solicita a la wallet que firme las transacciones. |
+| IDL y cliente generado | Describen la interfaz del programa y permiten utilizarla desde TypeScript. |
+
+### Si aparece «programa de referencia»
+
+El repositorio incluye un **IDL de referencia** para estudiar la estructura y generar el cliente. Con esa configuración puedes conectar tu wallet y consultar saldos; la consulta del registro y sus operaciones permanecen bloqueadas hasta importar el IDL del despliegue que utilizarás.
+
+Si la versión de clase ya viene configurada para el programa correspondiente, puedes continuar con las actividades sin repetir este paso.
+
+### Importar tu IDL
+
+Exporta desde Playground el IDL del programa que realmente compilaste y desplegaste en **Devnet**. Coloca el JSON dentro de tu espacio de trabajo, por ejemplo en `tmp-idl/registro.json`, y ejecuta desde la raíz:
 
 ```bash
-npm run configurar:idl -- /ruta/al/registro.json
+npm run configurar:idl -- ./tmp-idl/registro.json
 ```
 
-Si el archivo no incluye dirección:
+Si el archivo no incluye la dirección del programa, agrega su Program ID público:
 
 ```bash
-npm run configurar:idl -- /ruta/al/registro.json --program-id TU_PROGRAM_ID
+npm run configurar:idl -- ./tmp-idl/registro.json --program-id TU_PROGRAM_ID
 ```
 
-El comando comprueba nombres, orden y tipos de argumentos y campos de cuentas; conserva un respaldo del IDL anterior, reemplaza `idl.json`, genera el cliente y actualiza la configuración. Reinicia `npm run dev` después de la importación. No cambies direcciones a mano dentro del código generado.
+El comando comprueba la estructura esperada, importa el IDL y regenera el cliente. Detén el servidor con `Ctrl+C` y vuelve a ejecutar `npm run dev` después de la importación.
 
-Si eres instructor, puedes hacer esta configuración una sola vez y publicar el repositorio ya conectado al programa de la clase. Los participantes pueden usar el mismo programa desplegado y crear registros separados con sus propias wallets. El día 3 pueden volver a generar el cliente a partir del mismo IDL.
+**No edites manualmente el cliente generado.** Si cambias el IDL, ejecuta `npm run cliente`. Conserva juntos en tu repositorio `idl.json`, `src/config/programa.json` y `clients/js/`.
 
-Sigue la explicación completa en [IDL y Playground](docs/IDL-Y-PLAYGROUND.md).
+> 🔎 La wallet de Playground y la del navegador pueden ser distintas. Como la autoridad participa en la PDA, lo más sencillo es crear un negocio nuevo desde la app con la wallet del navegador. No necesitas trasladar claves privadas entre entornos.
 
-## Comandos de clase
+Consulta la [guía de IDL y Playground](./docs/IDL-Y-PLAYGROUND.md) si necesitas revisar la configuración.
 
-| Comando | Resultado |
+## Seguir las sesiones
+
+El proyecto utiliza el mismo frontend durante ambos días. Puedes elegir el punto de partida con estos comandos:
+
+| Comando | Qué prepara |
 | --- | --- |
-| `npm run clase:dia3` | Abre Conexión y reserva Registro para el día 4. |
-| `npm run clase:dia4` | Abre Registro y deja dos funciones como ejercicios: crear cliente y registrar venta. |
-| `npm run clase:resuelto` | Restaura las cinco operaciones resueltas. |
-| `npm run cliente` | Regenera el cliente desde el IDL actual. |
-| `npm run comprobar:idl` | Comprueba coherencia entre IDL, configuración y dirección generada. |
-| `npm run verificar` | Comprueba TypeScript, ejecuta pruebas y genera el build. |
+| `npm run clase:dia3` | Pantalla de conexión para explorar wallet, RPC, saldos e IDL. Reserva Registro para el día siguiente. |
+| `npm run clase:dia4` | Pantalla del registro con dos funciones por completar: `crearCliente` y `registrarVenta`. |
+| `npm run clase:resuelto` | Las cinco operaciones implementadas, como referencia para estudiar y contrastar. |
 
-Los cambios de modo reemplazan **`src/solana/acciones.ts`**. Antes de sobrescribirlo guardan una copia en `.aula/respaldos/`. Conservan el IDL, el cliente generado y su Program ID. Haz un commit de tu trabajo antes de cambiar de modo; si quieres conservar un ejercicio resuelto a mano, no vuelvas a aplicar el modo hasta guardarlo.
+Detén `npm run dev` antes de cambiar de modo y vuelve a iniciarlo al terminar.
 
-## Mapa del proyecto
+> **Guarda tu avance antes de cambiar de modo.** Estos comandos reemplazan `src/solana/acciones.ts`. Los cambios anteriores se respaldan en `.aula/respaldos/`; el IDL y el cliente generado se conservan. Puedes consultar la solución en `materiales/acciones-resuelto.ts.txt` sin reemplazar tu archivo.
 
-| Ruta | Qué contiene |
+## ¿Dónde está cada cosa?
+
+| Ruta | Qué encontrarás |
 | --- | --- |
-| `src/config/interfaz.ts` | Título, nombre inicial del negocio y etiqueta del importe. |
-| `src/components/Conexion.tsx` | Pantalla de wallet y saldos. |
-| `src/components/Registro.tsx` | Formularios, lectura de datos y estados de las operaciones. |
-| `src/solana/conexion.ts` | Un mismo endpoint para las lecturas y los envíos. |
-| `src/solana/pdas.ts` y `seeds.ts` | Derivación de Registro, Cliente y Venta. |
-| `src/solana/lecturas.ts` | Lecturas y adaptación de cuentas para la interfaz. |
-| `src/solana/acciones.ts` | Integración que estudiamos y completamos en clase. |
-| `src/solana/tx.ts` | Conversión de instrucciones, envío, confirmación y errores. |
-| `clients/js/src/generated/` | Cliente generado con Codama; no se edita manualmente. |
-| `idl.json` | Contrato del programa utilizado para generar el cliente. |
-| `programa/` | Copia de referencia del programa Rust y su cliente de Playground. |
-| `materiales/` | Versiones resuelta y de ejercicio de `acciones.ts`. |
-| `docs/` | Guías de clase, pruebas y alcance técnico. |
+| `src/components/` | Pantallas y formularios de la aplicación. |
+| `src/solana/acciones.ts` | Funciones que conectan los formularios con las instrucciones del programa. |
+| `src/solana/lecturas.ts` | Lectura de Registro, Cliente y Venta. |
+| `src/solana/pdas.ts` y `seeds.ts` | Derivación de las direcciones de las cuentas. |
+| `src/solana/tx.ts` | Preparación, envío, confirmación y errores de las transacciones. |
+| `src/config/interfaz.ts` | Título y valores iniciales para personalizar la demo. |
+| `idl.json` | IDL utilizado para generar el cliente del programa. |
+| `clients/js/src/generated/` | Código generado con Codama; no se modifica a mano. |
+| `materiales/` | Versión de ejercicio y solución de las operaciones. |
+| `docs/` | Guías de configuración, pruebas y alcance del ejemplo. |
 
-Codama genera instrucciones y decodificadores con Solana Kit. Wallet Adapter utiliza `@solana/web3.js` para enviar la transacción a la wallet. El puente entre ambos ya está preparado en `tx.ts`; no se plantea reconstruirlo durante una clase de 60–90 minutos.
+La base utiliza **React + Vite**, **TypeScript**, **Wallet Adapter**, **Solana Kit**, **web3.js** y **Codama**. La integración entre las librerías ya está preparada para que puedas concentrarte en el flujo de cuentas e instrucciones.
 
-## Configurar otro RPC de Devnet
-
-El endpoint predeterminado es `https://api.devnet.solana.com`. Si hay límites de uso, copia `.env.example` a `.env.local` y configura `VITE_SOLANA_RPC_URL` con otro endpoint **de Devnet**. Reinicia Vite.
-
-Las variables `VITE_*` quedan expuestas al navegador: no pongas claves privadas ni secretos de servidor. Antes de solicitar una firma, la app comprueba que el RPC corresponde a Devnet y que el programa indicado está desplegado como cuenta ejecutable.
-
-## Pruebas y alcance
+## Probar tus cambios
 
 ```bash
 npm run verificar
 ```
 
-Las pruebas automatizadas verifican semillas, serialización y roles de cuentas, confirmaciones exitosas y fallidas simuladas, interrupciones de confirmación, red Devnet, validaciones y contrato del IDL. **No envían transacciones a la cadena.**
+Este comando comprueba TypeScript, ejecuta las pruebas automatizadas y genera el build del frontend. Las pruebas automatizadas **no envían transacciones**: completa también el recorrido de [pruebas manuales en Devnet](./docs/PRUEBAS-MANUALES.md).
 
-Consulta [Pruebas manuales](docs/PRUEBAS-MANUALES.md), [Seguridad y alcance](docs/SEGURIDAD-Y-ALCANCE.md) y [Estado de validación](docs/ESTADO-DE-VALIDACION.md). Es un proyecto educativo para Devnet, con límites conocidos del programa base.
+Para tu primera prueba, crea un negocio, agrega un cliente, registra una venta y consulta el resultado. Después prueba corregir el importe, devolver la venta y cancelar una solicitud de firma.
 
-## Material de las sesiones
+## Si algo no funciona
 
-- [Día 3: conexión, RPC y cliente generado](docs/DIA-3.md).
-- [Día 4: operaciones del registro](docs/DIA-4.md).
-- [Punto de partida del día 5](docs/DIA-5-PUNTO-DE-PARTIDA.md).
-- [Origen de los materiales y cambios realizados](docs/ORIGENES.md).
+| Situación | Qué revisar |
+| --- | --- |
+| La wallet no aparece | Abre la app en una pestaña normal del navegador con una extensión compatible instalada. |
+| Falta SOL de prueba | Solicítalo en [Solana Faucet](https://faucet.solana.com/), seleccionando Devnet. |
+| No aparece tu negocio | Comprueba el nombre exacto y la dirección de su autoridad; ambos participan en la PDA. |
+| No puedes repetir un SKU | Cada cliente solo puede tener una venta activa con ese SKU. |
+| El RPC responde con un límite de uso | Espera y vuelve a intentar, o configura otro endpoint de Devnet en `.env.local` siguiendo `.env.example`. |
+| Cambiaste el IDL y falla la comprobación | Ejecuta `npm run cliente` y reinicia el servidor. |
+
+## Recursos y comunidad
+
+- [GitBook de Solana Engineering Track: Advanced](https://waylearn.gitbook.io/solana-engineering-track-advanced).
+- [Programa Registro de Ventas con PDAs](https://github.com/WayLearnLatam/Registro-Ventas-Solana-PDA).
+- [Solana Playground](https://beta.solpg.io/).
+- [Comunidad de WayLearn en Discord](https://discord.gg/hvnpbZxu9b).
+
+Este es un proyecto educativo para **Devnet**. Las validaciones del formulario no sustituyen las restricciones del programa. Revisa [seguridad y alcance](./docs/SEGURIDAD-Y-ALCANCE.md) para conocer los límites del ejemplo y los aspectos que deben revisarse antes de producción.
